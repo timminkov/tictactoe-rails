@@ -1,3 +1,12 @@
-// Place all the styles related to the tictactoe controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.button {
+  width: 100px;
+  height: 100px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.placement {
+  text-align: center;
+}
+
+
