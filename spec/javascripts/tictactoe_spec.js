@@ -25,5 +25,12 @@ describe("board", function() {
 
       expect(board.data()).toEqual(firstMoveBoard);
     });
+
+    it("inserts an O into position 2 when given O, 2", function() {
+      var firstMoveBoard = [' ', ' ', 'O', ' ', ' ', ' ', ' ', ' ', ' '];
+      board.place('O', 2);
+  
+      expect(board.data()).toEqual(firstMoveBoard);
+    });
   });
 });

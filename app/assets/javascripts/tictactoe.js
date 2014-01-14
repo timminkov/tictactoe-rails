@@ -6,6 +6,6 @@ function Board() {
   }
 
   this.place = function(piece, space) {
-    data[space] = 'X';
+    data[space] = piece;
   }
 }
