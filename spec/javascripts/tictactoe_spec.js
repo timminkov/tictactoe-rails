@@ -43,12 +43,48 @@ describe("board", function() {
       board.place('X', 0);
 
       expect(board.isEmptySpace(0)).toEqual(false);
-  
+    });
+  });
+
+  describe("checking for a game over", function() {
+    it("returns false if no moves have been made", function() {
+      expect(board.isGameOver()).toBe(false);
+    });
+
+    it("returns true if the board is full", function() {
+      fullBoard = ['X', 'O', 'X', 'X', 'X', 'O', 'O', 'O', 'X'];
+      board.setData(fullBoard);
+      
+      expect(board.isGameOver()).toBe(true);
+    });
+
+    it("returns true if there's a set of three", function () {
+     
+    });
+  });
+
+  describe("check for a set of 3", function() {
+
+  });
+
+  describe("winning combos", function() {
+    it("should return all the possible winning combinations", function() {
+      var winningCombos = 
+        [[0,1,2],
+         [3,4,5],
+         [6,7,8],
+         [0,3,6],
+         [1,4,7],
+         [2,5,8],
+         [0,4,8],
+         [2,4,6]];
+
+      expect(board.winningCombos()).toEqual(winningCombos);
     });
   });
 });
 
-describe("player", function() {
+describe("minimax", function() {
   var player;
 
   beforeEach(function() {
