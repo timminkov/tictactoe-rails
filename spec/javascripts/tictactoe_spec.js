@@ -47,19 +47,31 @@ describe("board", function() {
   });
 
   describe("checking for a game over", function() {
-    it("returns false if no moves have been made", function() {
+    it("returns false when the game is not over", function() {
+      var incompleteBoard = ['O', 'X', 'O', ' ', ' ', ' ', ' ', ' ', ' '];
+      board.setData(incompleteBoard);
+      
       expect(board.isGameOver()).toBe(false);
+    });
+  });
+
+  describe("checking for game status", function() {
+    it("returns false if no moves have been made", function() {
+      expect(board.gameStatus()).toBe(false);
     });
 
     it("returns true if the board is full", function() {
       fullBoard = ['X', 'O', 'X', 'X', 'X', 'O', 'O', 'O', 'X'];
       board.setData(fullBoard);
       
-      expect(board.isGameOver()).toBe(true);
+      expect(board.gameStatus()).toBe(true);
     });
 
     it("returns true if there's a set of three", function () {
-     
+      winnerBoard = ['X', 'X', 'X', 'O', 'O', ' ', ' ', ' ', ' '];
+      board.setData(winnerBoard);
+  
+      expect(board.gameStatus()).toBe(true); 
     });
   });
 
@@ -94,19 +106,26 @@ describe("board", function() {
   });
 
   describe("checking for a winner", function() {
-    it("should return true for a board with a winner", function() {
-      var boardWithWinner = ['X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' ']; 
-      board.setData(boardWithWinner);
+    it("should return X for a board with a winner X", function() {
+      var boardWithWinnerX = ['X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' ']; 
+      board.setData(boardWithWinnerX);
 
-      expect(board.isWinner()).toBe(true); 
+      expect(board.winner()).toBe('X'); 
     });
 
     it("should return false for a board with no winner", function() {
       var boardWithoutWinner = [' ', 'O', 'X', ' ', ' ', ' ', ' ', ' ', ' '];
       board.setData(boardWithoutWinner);
 
-      expect(board.isWinner()).toBe(false);
+      expect(board.winner()).toBe(false);
     });
+
+    it("should return O for a board with a winner O", function() {
+      var boardWithWinnerO = ['O', 'O', 'O', ' ', ' ', ' ', ' ', ' ', ' ']; 
+      board.setData(boardWithWinnerO);
+
+      expect(board.winner()).toBe('O');
+    }); 
   });
 
   describe("getting the board children", function() {
@@ -126,6 +145,19 @@ describe("board", function() {
 });
 
 describe("minimax", function() {
-  describe("taking a turn", function() {
+  var minimax, board;
+
+  beforeEach(function() {
+    minimax = new Minimax();
+    board = new Board();
+  });
+  
+  describe("scoring the board", function() {
+    it("returns 1 if CPU won", function() {
+      var cpuWin = ['O', 'O', 'O', ' ', ' ', ' ', ' ', ' ', ' '];
+      board.setData(cpuWin);
+
+      expect(minimax.score(cpuWin)).toBe(-1);
+    });
   });
 });

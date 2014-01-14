@@ -22,6 +22,11 @@ function Board() {
   }
 
   this.isGameOver = function() {
+    if (this.gameStatus === false) { return true }
+    return false;
+  }
+
+  this.gameStatus = function() {
     var checkEmptyArray = [];
     for (space = 0; space < data.length; space++) {
       if (data[space]  === 'X' || data[space] === 'O') {
@@ -29,16 +34,15 @@ function Board() {
       } 
     }
 
-    if (checkEmptyArray.length == 9) {
-      return true; 
-    }
+    if (checkEmptyArray.length == 9 || this.winner()) { return true; }
+
     return false;
   }
 
-  this.isWinner = function() {
+  this.winner = function() {
     var winners = this.winningCombos()
     for (space = 0; space < winners.length; space++) {
-      if (this.isMatch(data[winners[space][0]], data[winners[space][1]], data[winners[space][2]])) { return true; } 
+      if (this.isMatch(data[winners[space][0]], data[winners[space][1]], data[winners[space][2]])) { return data[winners[space][0]]; } 
     }
     return false;
   }
@@ -76,4 +80,10 @@ function Board() {
 
     return winningCombos;
   }
+}
+
+function Minimax() {
+  this.score = function() {
+  
+  } 
 }
