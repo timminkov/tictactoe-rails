@@ -8,4 +8,12 @@ function Board() {
   this.place = function(piece, space) {
     data[space] = piece;
   }
+
+  this.isEmptySpace = function(space) {
+    if (data[space] === ' ') {
+      return true;
+    }
+
+    return false
+  }
 }

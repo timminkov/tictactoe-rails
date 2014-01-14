@@ -33,4 +33,28 @@ describe("board", function() {
       expect(board.data()).toEqual(firstMoveBoard);
     });
   });
+
+  describe("checking for an empty place", function() {
+    it("returns true when empty space is checked", function() {
+      expect(board.isEmptySpace(0)).toEqual(true);
+    });
+
+    it("returns false when checked space is not empty", function() {
+      board.place('X', 0);
+
+      expect(board.isEmptySpace(0)).toEqual(false);
+  
+    });
+  });
+});
+
+describe("player", function() {
+  var player;
+
+  beforeEach(function() {
+    player = new Player();
+  });
+
+  describe("taking a turn", function() {
+  });
 });
