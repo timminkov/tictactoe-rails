@@ -63,8 +63,18 @@ describe("board", function() {
     });
   });
 
-  describe("check for a set of 3", function() {
+  describe("check if three vars are the same", function() {
+    it("returns true if given X X X", function() {
+      expect(board.isMatch('X', 'X', 'X')).toBe(true);
+    }); 
 
+    it("returns false if given O X O", function() {
+      expect(board.isMatch('O', 'X', 'O')).toBe(false);
+    });
+
+    it("returns false if given empty spaces", function() {
+      expect(board.isMatch(' ', ' ', ' ')).toBe(false);
+    });
   });
 
   describe("winning combos", function() {
@@ -80,6 +90,22 @@ describe("board", function() {
          [2,4,6]];
 
       expect(board.winningCombos()).toEqual(winningCombos);
+    });
+  });
+
+  describe("checking for a winner", function() {
+    it("should return true for a board with a winner", function() {
+      var boardWithWinner = ['X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' ']; 
+      board.setData(boardWithWinner);
+
+      expect(board.isWinner()).toBe(true); 
+    });
+
+    it("should return false for a board with no winner", function() {
+      var boardWithoutWinner = [' ', 'O', 'X', ' ', ' ', ' ', ' ', ' ', ' '];
+      board.setData(boardWithoutWinner);
+
+      expect(board.isWinner()).toBe(false);
     });
   });
 });

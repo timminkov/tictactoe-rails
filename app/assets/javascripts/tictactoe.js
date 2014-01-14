@@ -24,7 +24,7 @@ function Board() {
   this.isGameOver = function() {
     var checkEmptyArray = [];
     for (space = 0; space < data.length; space++) {
-      if ((data[space]  === 'X') || (data[space] === 'O')) {
+      if (data[space]  === 'X' || data[space] === 'O') {
         checkEmptyArray.push(space);
       } 
     }
@@ -32,6 +32,20 @@ function Board() {
     if (checkEmptyArray.length == 9) {
       return true; 
     }
+    return false;
+  }
+
+  this.isWinner = function() {
+    var winners = this.winningCombos()
+    for (space = 0; space < winners.length; space++) {
+      if (this.isMatch(data[winners[space][0]], data[winners[space][1]], data[winners[space][2]])) { return true; } 
+    }
+    return false;
+  }
+
+  this.isMatch = function(move1, move2, move3) {
+    if (move1 === ' ' && move2 === ' ' && move3 === ' ') { return false; }
+    if (move1 === move2 && move2 === move3) { return true; }
     return false;
   }
 
