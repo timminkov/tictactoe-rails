@@ -49,6 +49,20 @@ function Board() {
     return false;
   }
 
+  this.children = function() {
+    var children = [];
+    for (var space = 0; space < 9; space++) {
+      var tempData = data.slice(0);
+      if (data[space] === ' ') {
+        tempData[space] = 'O'; 
+        var tempBoard = new Board();
+        tempBoard.setData(tempData); 
+        children.push(tempBoard);
+      } 
+    } 
+    return children;
+  }
+
   this.winningCombos = function() {
     var winningCombos =
       [[0,1,2],

@@ -108,15 +108,24 @@ describe("board", function() {
       expect(board.isWinner()).toBe(false);
     });
   });
+
+  describe("getting the board children", function() {
+    it("returns an array with next possible moves", function() {
+      var someBoard = ['X', 'O', 'X', 'O', 'X', 'O', 'X', ' ', ' '];
+      board.setData(someBoard);
+
+      var child1 = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', ' '];
+      var child2 = ['X', 'O', 'X', 'O', 'X', 'O', 'X', ' ', 'O']; 
+      var children = board.children();
+
+      expect(children.length).toEqual(2);
+      expect(children[0].data()).toEqual(child1);
+      expect(children[1].data()).toEqual(child2);
+    }); 
+  });
 });
 
 describe("minimax", function() {
-  var player;
-
-  beforeEach(function() {
-    player = new Player();
-  });
-
   describe("taking a turn", function() {
   });
 });
