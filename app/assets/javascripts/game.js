@@ -1,9 +1,11 @@
 $(document).ready(function() {
   var board = new Board();
+  var minimax = new Minimax();
 
   $('.button').on('click', function() {
     var move = $(this).data('space');
     board.place('X', move);
+  
     drawBoard();
   });
 

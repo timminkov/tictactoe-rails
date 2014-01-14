@@ -64,14 +64,14 @@ describe("board", function() {
       fullBoard = ['X', 'O', 'X', 'X', 'X', 'O', 'O', 'O', 'X'];
       board.setData(fullBoard);
       
-      expect(board.gameStatus()).toBe(true);
+      expect(board.gameStatus()).toBe('tie');
     });
 
     it("returns true if there's a set of three", function () {
       winnerBoard = ['X', 'X', 'X', 'O', 'O', ' ', ' ', ' ', ' '];
       board.setData(winnerBoard);
   
-      expect(board.gameStatus()).toBe(true); 
+      expect(board.gameStatus()).toBe('won'); 
     });
   });
 
@@ -135,7 +135,7 @@ describe("board", function() {
 
       var child1 = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', ' '];
       var child2 = ['X', 'O', 'X', 'O', 'X', 'O', 'X', ' ', 'O']; 
-      var children = board.children();
+      var children = board.children('O');
 
       expect(children.length).toEqual(2);
       expect(children[0].data()).toEqual(child1);
@@ -153,11 +153,31 @@ describe("minimax", function() {
   });
   
   describe("scoring the board", function() {
-    it("returns 1 if CPU won", function() {
+    it("returns 1 if current player won", function() {
       var cpuWin = ['O', 'O', 'O', ' ', ' ', ' ', ' ', ' ', ' '];
       board.setData(cpuWin);
 
-      expect(minimax.score(cpuWin)).toBe(-1);
+      expect(minimax.score(board, 'O')).toBe(1);
+    });
+
+    it("returns 0 if board is a tie", function() {
+      var tie = ['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', 'X'];
+      board.setData(tie);
+
+      expect(minimax.score(board)).toBe(0);
+    });
+
+    it("returns -1 if board is a loss for current player", function() {
+      var cpuLoss = ['X', 'X', 'X', 'O', 'O', ' ', ' ', ' ', ' ']; 
+      board.setData(cpuLoss);
+
+      expect(minimax.score(board, 'O')).toBe(-1);
+    });
+  });
+
+  describe("minimaxing the board", function() {
+    it("", function() {
+    
     });
   });
 });
