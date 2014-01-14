@@ -22,7 +22,7 @@ function Board() {
   }
 
   this.isGameOver = function() {
-    if (this.gameStatus === false) { return true }
+    if (!this.gameStatus() === false) { return true }
     return false;
   }
 

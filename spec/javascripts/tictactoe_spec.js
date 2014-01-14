@@ -176,8 +176,20 @@ describe("minimax", function() {
   });
 
   describe("minimaxing the board", function() {
-    it("", function() {
-    
+    it("does something", function() {
+      var board2 = ['X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' '];
+      board.setData(board2);
+
+      expect(minimax.minimax(board, 'X')).toBe(-1); 
+    });
+
+    it("does something else", function() {
+      var board2 = ['X','O','X',
+                    'O','X','X',
+                    'O','O',' '];
+      board.setData(board2);
+
+      expect(minimax.minimax(board, 'X')).toBe(0);
     });
   });
 });
