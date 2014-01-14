@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'pg'
+
 # Haml for templating
 gem 'haml-rails'
 
