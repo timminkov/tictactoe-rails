@@ -81,5 +81,14 @@ describe("minimax", function() {
       
       expect(minimax.minimax(board, 'O')).toBe(1);
     });
+
+    it("returns 1 if you can win next turn", function() {
+      var boardArray = ['X',' ',' ',
+                        'O','O',' ',
+                        'X',' ',' '];
+      board.setData(boardArray);
+
+      expect(minimax.minimax(board, 'O')).toBe(1);
+    });
   });
 });
