@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'pg'
+gem 'rails_12factor'
 
 # Haml for templating
 gem 'haml-rails'
