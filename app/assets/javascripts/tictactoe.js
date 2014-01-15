@@ -34,14 +34,14 @@ function Board() {
       } 
     }
 
-    if (checkEmptyArray.length == 9) { return 'tie'; } 
     if (this.winner()) { return 'won'; }
+    if (checkEmptyArray.length == 9) { return 'tie'; } 
 
     return false;
   }
 
   this.winner = function() {
-    var winners = this.winningCombos()
+    var winners = this.winningCombos();
     for (space = 0; space < winners.length; space++) {
       if (this.isMatch(data[winners[space][0]], data[winners[space][1]], data[winners[space][2]])) { return data[winners[space][0]]; } 
     }
@@ -84,27 +84,37 @@ function Board() {
 }
 
 function Minimax() {
-  this.nextTurn = function(player) {
-    if (player === 'O') { return 'X'; }
+  var player = 'O';
+
+  this.player = function() {
+    return player;
+  }
+
+  this.setPlayer = function(anotherPlayer) {
+    player = anotherPlayer;
+  }
+
+  this.nextTurn = function(tempPlayer) {
+    if (tempPlayer === 'O') { return 'X'; }
     else { return 'O'; }
   }
 
   this.score = function(board) {
-    if (board.winner() === 'O') { return 1; }
+    if (board.winner() === player) { return 1; }
     if (board.gameStatus() === 'tie') { return 0; }
-    if (board.winner() === 'X') { return -1; }
+    if (!(board.winner() === player) && !(board.gameStatus() === 'tie')) { return -1; }
   } 
 
-  this.minimax = function(board, player) {
+  this.minimax = function(board, tempPlayer) {
     if (board.isGameOver()) { return this.score(board); }
 
-    var children = board.children(player);
+    var children = board.children(tempPlayer);
     var scores = [];
     for (var index = 0; index < children.length; index++) {
-      scores.push(this.minimax(children[index], this.nextTurn(player)));
+      scores.push(this.minimax(children[index], this.nextTurn(tempPlayer)));
     }
     
-    if (player == 'O') { return Math.max.apply(Math, scores); }
+    if (player == tempPlayer) { return Math.max.apply(Math, scores); }
     return Math.min.apply(Math, scores);
   }
 }

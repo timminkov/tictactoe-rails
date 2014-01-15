@@ -61,7 +61,9 @@ describe("board", function() {
     });
 
     it("returns true if the board is full", function() {
-      fullBoard = ['X', 'O', 'X', 'X', 'X', 'O', 'O', 'O', 'X'];
+      fullBoard = ['X', 'O', 'X',
+                   'X', 'O', 'O',
+                   'O', 'X', 'X'];
       board.setData(fullBoard);
       
       expect(board.gameStatus()).toBe('tie');
@@ -130,16 +132,18 @@ describe("board", function() {
 
   describe("getting the board children", function() {
     it("returns an array with next possible moves", function() {
-      var someBoard = ['X', 'O', 'X', 'O', 'X', 'O', 'X', ' ', ' '];
+      var someBoard = ['X', 'O', 'X', 'O', 'X', 'O', ' ', ' ', ' '];
       board.setData(someBoard);
 
-      var child1 = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', ' '];
-      var child2 = ['X', 'O', 'X', 'O', 'X', 'O', 'X', ' ', 'O']; 
+      var child  = ['X', 'O', 'X', 'O', 'X', 'O', 'O', ' ', ' ']; 
+      var child1 = ['X', 'O', 'X', 'O', 'X', 'O', ' ', 'O', ' '];
+      var child2 = ['X', 'O', 'X', 'O', 'X', 'O', ' ', ' ', 'O']; 
       var children = board.children('O');
 
-      expect(children.length).toEqual(2);
-      expect(children[0].data()).toEqual(child1);
-      expect(children[1].data()).toEqual(child2);
+      expect(children.length).toEqual(3);
+      expect(children[0].data()).toEqual(child);
+      expect(children[1].data()).toEqual(child1);
+      expect(children[2].data()).toEqual(child2);
     }); 
   });
 });
@@ -149,6 +153,7 @@ describe("minimax", function() {
 
   beforeEach(function() {
     minimax = new Minimax();
+    minimax.setPlayer('O');
     board = new Board();
   });
   
@@ -157,7 +162,7 @@ describe("minimax", function() {
       var cpuWin = ['O', 'O', 'O', ' ', ' ', ' ', ' ', ' ', ' '];
       board.setData(cpuWin);
 
-      expect(minimax.score(board, 'O')).toBe(1);
+      expect(minimax.score(board)).toBe(1);
     });
 
     it("returns 0 if board is a tie", function() {
@@ -171,25 +176,54 @@ describe("minimax", function() {
       var cpuLoss = ['X', 'X', 'X', 'O', 'O', ' ', ' ', ' ', ' ']; 
       board.setData(cpuLoss);
 
-      expect(minimax.score(board, 'O')).toBe(-1);
+      expect(minimax.score(board)).toBe(-1);
     });
   });
 
   describe("minimaxing the board", function() {
-    it("does something", function() {
+    it("should be -1 if the board is a loss", function() {
       var board2 = ['X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' '];
       board.setData(board2);
 
       expect(minimax.minimax(board, 'X')).toBe(-1); 
     });
 
-    it("does something else", function() {
-      var board2 = ['X','O','X',
-                    'O','X','X',
-                    'O','O',' '];
+    it("returns -1 if you lose no matter what in 2 turns", function() {
+      var board2 = [' ','X',' ',
+                    'O','X','O',
+                    'X','O','X'];
       board.setData(board2);
 
-      expect(minimax.minimax(board, 'X')).toBe(0);
+      expect(minimax.minimax(board, 'O')).toBe(-1);
+    });
+
+    it("returns 0 if you tie next turn", function() {
+      var board2 = ['X','O','X',
+                    'X','O','O',
+                    'O','X',' '];
+      board.setData(board2);
+      var minimaxer = new Minimax();
+      minimaxer.setPlayer('X');
+
+      expect(minimaxer.minimax(board, 'X')).toBe(0);
+    });
+
+    it("returns a 1 if you can win next turn", function() {
+      var board2 = ['O','X','O',
+                    'X','X','O',
+                    'X',' ',' '];
+      board.setData(board2)
+
+      expect(minimax.minimax(board, 'O')).toBe(1);
+    });
+
+    it("returns 1 if your opponent will lose no matter what", function() {
+      var board2 = [' ','O',' ',
+                    'O','X','O',
+                    'X','O',' '];
+      board.setData(board2);
+      
+      expect(minimax.minimax(board, 'O')).toBe(1);
     });
   });
 });
