@@ -6,9 +6,19 @@ describe("minimax", function() {
     minimax.setPlayer('O');
     board = new Board();
   });
+
+  describe("getting the opposite player", function() {
+    it("returns O if given X", function() {
+      expect(minimax.nextTurn('X')).toBe('O');
+    });
+
+    it("returns X if given O", function() {
+      expect(minimax.nextTurn('O')).toBe('X');
+    });
+  });
   
   describe("scoring the board", function() {
-    it("returns 1 if current player won", function() {
+    it("returns 1 if cpu player won", function() {
       var cpuWin = ['O', 'O', 'O',
                     ' ', ' ', ' ',
                     ' ', ' ', ' '];
@@ -26,7 +36,7 @@ describe("minimax", function() {
       expect(minimax.score(board)).toBe(0);
     });
 
-    it("returns -1 if board is a loss for current player", function() {
+    it("returns -1 if board is a loss for cpu", function() {
       var cpuLoss = ['X', 'X', 'X',
                      'O', 'O', ' ',
                      ' ', ' ', ' ']; 
