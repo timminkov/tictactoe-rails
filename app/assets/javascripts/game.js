@@ -7,6 +7,7 @@ $(document).ready(function() {
     drawBoard();
     var move = $(this).data('space');
     var space = $(this).children('.placement').first().text();
+
     if (space === ' ') {
       board.place('X', move);
 
@@ -14,7 +15,7 @@ $(document).ready(function() {
       var counter = -2;
       var maxedBoard = new Board();
       for (var index = 0; index < children.length; index++ ) {
-        if (minimax.minimax(children[index], 'O') > counter) {
+        if (minimax.minimax(children[index], 'X') > counter) {
           counter = minimax.minimax(children[index], 'X');
           var maxedBoard = new Board();
           maxedBoard.setData(children[index].data());

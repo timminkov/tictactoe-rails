@@ -114,7 +114,7 @@ function Minimax() {
       scores.push(this.minimax(children[index], this.nextTurn(tempPlayer)));
     }
     
-    if (player == tempPlayer) { return Math.max.apply(Math, scores); }
+    if (tempPlayer === player) { return Math.max.apply(Math, scores); }
     return Math.min.apply(Math, scores);
   }
 }
