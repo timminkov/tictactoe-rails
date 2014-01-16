@@ -1,4 +1,4 @@
-function Board(data) {
+function Board() {
   var data = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
 
   this.data = function() {
