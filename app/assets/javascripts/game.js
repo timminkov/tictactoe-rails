@@ -3,8 +3,7 @@ function Game() {
 
   this.start = function() {
     board = new Board();
-    minimax = new Minimax();
-    minimax.setPlayer('O');
+    minimax = new Minimax('O');
   }
 
   this.place = function(move, piece) {

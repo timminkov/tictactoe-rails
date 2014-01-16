@@ -1,5 +1,5 @@
-function Minimax() {
-  var player = 'O';
+function Minimax(player) {
+  var player;
 
   this.player = function() {
     return player;
