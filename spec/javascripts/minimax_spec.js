@@ -7,6 +7,18 @@ describe("minimax", function() {
     board = new Board();
   });
 
+  describe("getting the current player of the minimax class", function() {
+    it("returns O if the player is O", function() {
+      expect(minimax.player()).toBe('O');
+    });
+
+    it("returns X if the player is X", function() {
+      minimax.setPlayer('X');
+
+      expect(minimax.player()).toBe('X');
+    });
+  });
+
   describe("getting the opposite player", function() {
     it("returns O if given X", function() {
       expect(minimax.nextTurn('X')).toBe('O');
@@ -15,6 +27,14 @@ describe("minimax", function() {
     it("returns X if given O", function() {
       expect(minimax.nextTurn('O')).toBe('X');
     });
+  });
+
+  describe("setting the player", function() {
+    it("it sets the player to the minimax class", function() {
+      minimax.setPlayer('X');
+
+      expect(minimax.player()).toBe('X');
+    });  
   });
   
   describe("scoring the board", function() {
